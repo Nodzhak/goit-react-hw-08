@@ -1,55 +1,3 @@
-// import ContactList from "../../components/ContactList/ContactList";
-// import ContactForm from "../../components/ContactForm/ContactForm";
-// import { useDispatch, useSelector } from "react-redux";
-// import { useEffect } from "react";
-// import { fetchContacts } from "../../redux/contacts/contactsOps";
-// import { selectLoading } from "../../redux/contacts/selectors";
-// import Loader from "../../components/Loader/Loader";
-// import SearchBox from "../../components/SearchBox/SearchBox";
-// import Error from "../../components/Error/Error";
-// import { selectError } from "../../redux/contacts/selectors";
-// import Typography from "@mui/material/Typography";
-// import Box from "@mui/material/Box";
-
-// export default function Contacts() {
-//   const dispatch = useDispatch();
-//   const loading = useSelector(selectLoading);
-//   const error = useSelector(selectError);
-
-//   useEffect(() => {
-//     dispatch(fetchContacts());
-//   }, [dispatch]);
-
-//   return (
-//     <Box
-//       sx={{
-//         marginTop: "10px",
-//         backgroundColor: "#f2f1f0",
-//         padding: "10px",
-//         borderRadius: "8px",
-//       }}
-//     >
-//       <Typography
-//         variant="h6"
-//         sx={{
-//           color: "#524f4e",
-//           fontSize: "22px",
-//           marginBottom: "10px",
-//           textAlign: "center",
-//         }}
-//       >
-//         Phonebook
-//       </Typography>
-
-//       <ContactForm />
-//       {loading && <Loader />}
-//       <SearchBox />
-
-//       {error ? <Error>Error! </Error> : <ContactList />}
-//     </Box>
-//   );
-// }
-
 import ContactList from "../../components/ContactList/ContactList";
 import ContactForm from "../../components/ContactForm/ContactForm";
 import { useDispatch, useSelector } from "react-redux";
@@ -83,7 +31,6 @@ export default function Contacts() {
       }}
     >
       <Typography
-        // variant="h6"
         sx={{
           color: "#524f4e",
           fontSize: "22px",

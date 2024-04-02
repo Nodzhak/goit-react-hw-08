@@ -29,7 +29,6 @@ export default function LoginForm() {
       >
         <Form
           style={{
-            width: "320px",
             marginLeft: "auto",
             marginRight: "auto",
             display: "flex",
@@ -58,7 +57,7 @@ export default function LoginForm() {
               {({ field }) => (
                 <TextField
                   sx={{
-                    width: "320px",
+                    // width: "320px",
                   }}
                   {...field}
                   id={mailId}
