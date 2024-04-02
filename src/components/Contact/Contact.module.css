@@ -1,0 +1,18 @@
+.btn_delete {
+    padding: 3px 8px;
+  }
+  
+  .item_info {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  
+  .icon_man {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .icon_number {
+    width: 20px;
+  }
