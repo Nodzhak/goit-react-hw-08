@@ -1,9 +1,18 @@
-import css from './Error.module.css';
+import { Box, Typography } from "@mui/material";
 
 export default function Error({ children }) {
   return (
-    <p className={css.text}>
-      <b>{children}</b>
-    </p>
+    <Box
+      sx={{
+        textAlign: "center",
+        marginY: "20px",
+        textTransform: "uppercase",
+        fontSize: "18px",
+      }}
+    >
+      <Typography sx={{ margin: "0", color: "orangered" }}>
+        <b>{children}</b>
+      </Typography>
+    </Box>
   );
 }

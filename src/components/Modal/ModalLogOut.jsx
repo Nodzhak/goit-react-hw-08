@@ -1,17 +1,15 @@
 import { useDispatch } from "react-redux";
-import { deleteContact } from "../../redux/contacts/operations";
-import toast from "react-hot-toast";
+import { logout } from "../../redux/auth/operations";
 import Box from "@mui/material/Box";
 import { Button, Typography } from "@mui/material";
+import ErrorIcon from "@mui/icons-material/Error";
 
-export default function ModalContact({ contact, close }) {
+export default function ModalLogOut({ user, close }) {
   const dispatch = useDispatch();
 
-  const handleDelete = () => {
-    dispatch(deleteContact(contact.id));
-    toast.success("Contact was deleted");
+  const handleLogout = () => {
+    dispatch(logout());
   };
-
   return (
     <Box>
       <Box>
@@ -22,9 +20,9 @@ export default function ModalContact({ contact, close }) {
             textAlign: "center",
             padding: "6px",
             marginBottom: "30px",
+            fontFamily: "",
           }}
         >
-          Are you sure you want to delete the contact
           <Typography
             sx={{
               fontSize: 18,
@@ -33,8 +31,9 @@ export default function ModalContact({ contact, close }) {
               fontWeight: "600",
             }}
           >
-            {contact.name} ?
+            {user}
           </Typography>
+          are you sure you want to logout?
         </Box>
 
         <Box
@@ -55,7 +54,7 @@ export default function ModalContact({ contact, close }) {
                 backgroundColor: "red",
               },
             }}
-            onClick={handleDelete}
+            onClick={handleLogout}
           >
             Yes
           </Button>

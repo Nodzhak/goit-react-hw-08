@@ -1,23 +1,19 @@
-import { useState, useEffect } from "react";
-import css from "./Loader.module.css";
+import Box from "@mui/material/Box";
+import { Backdrop } from "@mui/material";
 
-export default function Loader({ children }) {
-  const [dots, setDots] = useState("");
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setDots((dots) => (dots.length < 3 ? dots + "." : ""));
-    }, 250);
-
-    return () => clearInterval(interval);
-  }, []);
-
+export default function Loader() {
   return (
-    <p className={css.text}>
-      <b>
-        {children}
-        {dots}
-      </b>
-    </p>
+    <Backdrop open={true} style={{ zIndex: 9999, color: "#fff" }}>
+      <Box
+        sx={{
+          position: "fixed",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          zIndex: "1",
+        }}
+      >
+      </Box>
+    </Backdrop>
   );
 }

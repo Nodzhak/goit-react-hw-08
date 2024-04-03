@@ -4,11 +4,11 @@ import * as Yup from "yup";
 import "yup-phone-lite";
 import css from "./ContactForm.module.css";
 import { useDispatch } from "react-redux";
-import { addContact } from "../../redux/contacts/contactsOps";
-import toast, { Toaster } from "react-hot-toast";
-import TextField from "@mui/material/TextField";
+import { addContact } from "../../redux/contacts/operations";
+import toast from "react-hot-toast";
 import { Button } from "@mui/material";
 import Box from "@mui/material/Box";
+import OutlinedInput from "@mui/material/OutlinedInput";
 
 const initialValues = {
   name: "",
@@ -38,7 +38,6 @@ export default function ContactForm() {
   return (
     <Box
       sx={{
-        marginTop: "10px",
         padding: "10px",
         borderRadius: "8px",
         display: "flex",
@@ -55,16 +54,13 @@ export default function ContactForm() {
           <Form
             style={{
               border: "1.5px solid #a2a3a3",
-              borderRadius: "5px",
+              borderRadius: "8px",
               width: "280px",
               padding: "20px",
               display: "flex",
               flexDirection: "column",
               gap: "15px",
               alignItems: "center",
-              color: "#524f4e",
-              fontWeight: "600",
-              backgroundColor: "#d5d9db",
             }}
           >
             <Box
@@ -78,15 +74,10 @@ export default function ContactForm() {
               <label htmlFor={nameId}>Name</label>
               <Field name="name">
                 {({ field }) => (
-                  <TextField
-                    sx={{
-                      backgroundColor: "#e8eced",
-                      border: "1px solid #edf9fc",
-                      borderRadius: "5px",
-                    }}
+                  <OutlinedInput
                     {...field}
                     id={nameId}
-                    label="Enter valid name"
+                    placeholder="Enter valid name"
                     value={field.value}
                   />
                 )}
@@ -109,15 +100,10 @@ export default function ContactForm() {
               <label htmlFor={phoneId}>Number</label>
               <Field name="number">
                 {({ field }) => (
-                  <TextField
-                    sx={{
-                      backgroundColor: "#e8eced",
-                      border: "1px solid #edf9fc",
-                      borderRadius: "5px",
-                    }}
+                  <OutlinedInput
                     {...field}
                     id={phoneId}
-                    label={"Enter valid number"}
+                    placeholder="Enter valid number"
                     value={field.value}
                   />
                 )}
@@ -133,13 +119,13 @@ export default function ContactForm() {
               variant="outlined"
               type="submit"
               disabled={!dirty || !isValid}
+              sx={{ border: "2px solid" }}
             >
               Add contact
             </Button>
           </Form>
         )}
       </Formik>
-      <Toaster />
     </Box>
   );
 }

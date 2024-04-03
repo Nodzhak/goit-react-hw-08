@@ -4,17 +4,14 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import ArrowCircleRightSharpIcon from "@mui/icons-material/ArrowCircleRightSharp";
 import { useSelector } from "react-redux";
-import { selectError, selectIsLoading } from "../../redux/auth/selectors";
+import { selectIsLoading } from "../../redux/auth/selectors";
 import Loader from "../../components/Loader/Loader";
-import Error from "../../components/Error/Error";
 
 export default function Login() {
   const loading = useSelector(selectIsLoading);
-  const error = useSelector(selectError);
 
   return (
     <Box>
-      {error && <Error>Login error! Please, try again!</Error>}
       <LoginForm />
       <Box
         sx={{
@@ -28,10 +25,8 @@ export default function Login() {
       >
         <Typography
           variant="h6"
-          sx={{
-          }}
         >
-          Don't have account?
+          Don`t have account?
         </Typography>
         <Link
           component="button"

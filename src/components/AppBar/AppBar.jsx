@@ -13,9 +13,11 @@ export default function AppBar() {
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
-        paddingBottom: "6px",
+        paddingBottom: "15px",
         marginBottom: "16px",
-        borderBottom: "1px solid #2a363b",
+        borderBottom: "2px solid #4f4e4d",
+
+        gap: "15px",
       }}
     >
       <Navigation />

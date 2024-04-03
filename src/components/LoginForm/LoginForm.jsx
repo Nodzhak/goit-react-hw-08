@@ -1,31 +1,50 @@
 import { Formik, Form, Field } from "formik";
-import { logIn } from "../../redux/auth/operations";
+import { login } from "../../redux/auth/operations";
 import { useDispatch } from "react-redux";
-import TextField from "@mui/material/TextField";
 import { Button } from "@mui/material";
 import Box from "@mui/material/Box";
 import useId from "@mui/material/utils/useId";
+import * as Yup from "yup";
+import { ErrorMessage } from "formik";
+import css from "./LoginForm.module.css";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import toast from "react-hot-toast";
+
+const ContactSchema = Yup.object().shape({
+  email: Yup.string()
+    .email("Please, enter a valid email address")
+    .required("Email is required"),
+  password: Yup.string()
+    .min(3, "Too short!")
+    .max(50, "Too long!")
+    .required("Password is required"),
+});
 
 export default function LoginForm() {
   const dispatch = useDispatch();
   const mailId = useId();
   const passwordId = useId();
   const handleSubmit = (values, actions) => {
-    dispatch(logIn(values));
+    dispatch(login(values))
+      .unwrap()
+      .then(() => {
+        toast.success("Login was successful!");
+      })
+      .catch(() => {
+        toast.error("Login was failed!");
+      });
+
     actions.resetForm();
   };
   return (
-    <Box
-      sx={{
-        padding: "20px",
-      }}
-    >
+    <Box>
       <Formik
         initialValues={{
           email: "",
           password: "",
         }}
         onSubmit={handleSubmit}
+        validationSchema={ContactSchema}
       >
         <Form
           style={{
@@ -44,28 +63,17 @@ export default function LoginForm() {
               gap: "6px",
             }}
           >
-            <label
-              htmlFor={mailId}
-              style={
-                {
-                }
-              }
-            >
-              Email
-            </label>
+            <label htmlFor={mailId}>Email</label>
             <Field type="email" name="email">
               {({ field }) => (
-                <TextField
-                  sx={{
-                    // width: "320px",
-                  }}
+                <OutlinedInput
                   {...field}
                   id={mailId}
-                  label="Enter your email"
-                  defaultValue="Default Value"
+                  placeholder="Enter your email"
                 />
               )}
             </Field>
+            <ErrorMessage name="email" component="span" className={css.error} />
           </Box>
 
           <Box
@@ -74,26 +82,24 @@ export default function LoginForm() {
               flexDirection: "column",
               gap: "6px",
               width: "100%",
+              color: "#524f4e",
             }}
           >
-            <label
-              htmlFor={passwordId}
-            >
-              Password
-            </label>
+            <label htmlFor={passwordId}>Password</label>
             <Field type="password" name="password">
               {({ field }) => (
-                <TextField
+                <OutlinedInput
                   id={passwordId}
-                  sx={{
-                  }}
                   {...field}
-
-                  label="Enter password"
-                  defaultValue="Default Value"
+                  placeholder="Enter password"
                 />
               )}
             </Field>
+            <ErrorMessage
+              name="password"
+              component="span"
+              className={css.error}
+            />
           </Box>
           <Button
             variant="outlined"

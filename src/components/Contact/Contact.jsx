@@ -2,7 +2,6 @@ import ModalContact from "../../components/Modal/Modal";
 import Modal from "react-modal";
 import { useState } from "react";
 import { Button } from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
 import { createTheme } from "@mui/material/styles";
 import { ThemeProvider } from "@mui/material/styles";
 import Box from "@mui/material/Box";
@@ -10,9 +9,8 @@ import Typography from "@mui/material/Typography";
 import PhoneIcon from "@mui/icons-material/Phone";
 import PersonIcon from "@mui/icons-material/Person";
 import { useDispatch } from "react-redux";
-import { updateContact } from "../../redux/contacts/contactsOps";
-import EditForm from "./EditForm";
-import BorderColorTwoToneIcon from "@mui/icons-material/BorderColorTwoTone";
+import { updateContact } from "../../redux/contacts/operations";
+import EditForm from "../EditForm/EditForm";
 
 const theme = createTheme({
   palette: {
@@ -33,9 +31,11 @@ const customStyles = {
     bottom: "auto",
     transform: "translate(-50%, -50%)",
     width: "400px",
-    height: "400px", // Опечатка тут, має бути "height" замість "heigth"
+    heigth: "400px",
+    borderRadius: "15px",
   },
   overlay: {
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
     width: "100%",
     height: "100%",
     display: "flex",
@@ -43,12 +43,7 @@ const customStyles = {
     alignItems: "center",
   },
 };
-
-// Додано елемент з ідентифікатором #modal
-const rootElement = document.getElementById("modal");
-if (rootElement) {
-  Modal.setAppElement(rootElement);
-}
+Modal.setAppElement("#root");
 
 export default function Contact({ contact }) {
   const [modalContactIsOpen, setModalContactIsOpen] = useState(false);
@@ -81,8 +76,6 @@ export default function Contact({ contact }) {
 
   const handleSubmit = (values) => {
     setValues(values);
-    console.log(values);
-
     dispatch(
       updateContact({
         ...values,
@@ -100,13 +93,12 @@ export default function Contact({ contact }) {
   return (
     <Box
       sx={{
-        backgroundColor: "#f2f1f0",
         borderRadius: "8px",
         padding: "10px",
         display: "flex",
         justifyContent: "space-between",
         border: "1px solid #a2a3a3",
-        width: "400px",
+        width: "300px",
         alignItems: "center",
       }}
     >
@@ -114,11 +106,12 @@ export default function Contact({ contact }) {
         <Box sx={{ width: "200px" }}>
           <Typography
             sx={{
-              fontSize: "16px",
+              fontSize: "14px",
               color: "#524f4e",
               display: "flex",
               alignItems: "center",
               gap: "10px",
+              fontWeight: "600",
             }}
           >
             <PersonIcon />
@@ -126,7 +119,7 @@ export default function Contact({ contact }) {
           </Typography>
           <Typography
             sx={{
-              fontSize: "16px",
+              fontSize: "14px",
               color: "#524f4e",
               display: "flex",
               alignItems: "center",
@@ -141,14 +134,18 @@ export default function Contact({ contact }) {
         <Button
           variant="outlined"
           type="button"
-          startIcon={<BorderColorTwoToneIcon fontSize="small" />}
           onClick={() => {
             setIsEditing(true);
             setIsVisible(false);
+
             openModalEdit();
           }}
           color="edit"
-          sx={{ height: "35px", alignItems: "stretch", marginRight: "10px" }}
+          sx={{
+            height: "35px",
+            alignItems: "stretch",
+            marginRight: "10px",
+          }}
         >
           Edit
         </Button>
@@ -156,10 +153,12 @@ export default function Contact({ contact }) {
         <Button
           variant="outlined"
           type="button"
-          startIcon={<DeleteIcon fontSize="small" />}
           onClick={handleDelete}
           color="ochre"
-          sx={{ height: "35px", alignItems: "stretch" }}
+          sx={{
+            height: "35px",
+            alignItems: "stretch",
+          }}
         >
           Delete
         </Button>
@@ -170,7 +169,7 @@ export default function Contact({ contact }) {
           style={customStyles}
           contentLabel="Example Modal"
         >
-          {<ModalContact contact={contact} />}
+          {<ModalContact contact={contact} close={closeModalContact} />}
         </Modal>
 
         <Modal

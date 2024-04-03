@@ -2,9 +2,8 @@ import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import "yup-phone-lite";
 import css from "./EditForm.module.css";
-import { Toaster } from "react-hot-toast";
 import TextField from "@mui/material/TextField";
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 
 const ContactSchema = Yup.object().shape({
@@ -29,15 +28,7 @@ export default function EditForm({ contact, onSubmit, close }) {
   };
 
   return (
-    <Box
-      sx={{
-        marginTop: "10px",
-        padding: "10px",
-        borderRadius: "8px",
-        display: "flex",
-        justifyContent: "center",
-      }}
-    >
+    <Box>
       <Formik
         initialValues={initialValues}
         onSubmit={handleSubmit}
@@ -45,19 +36,26 @@ export default function EditForm({ contact, onSubmit, close }) {
       >
         <Form
           style={{
-            border: "1.5px solid #a2a3a3",
-            borderRadius: "5px",
             width: "280px",
             padding: "20px",
             display: "flex",
             flexDirection: "column",
-
             gap: "15px",
-            alignItems: "stretch",
-            color: "#524f4e",
             fontWeight: "600",
+            margin: "auto",
           }}
         >
+          <Typography
+            sx={{
+              fontSize: 16,
+              color: "primary.main",
+              fontWeight: "600",
+              textAlign: "center",
+            }}
+          >
+            Please, make any necessary changes to the contact
+          </Typography>
+
           <Box
             sx={{
               display: "flex",
@@ -67,7 +65,12 @@ export default function EditForm({ contact, onSubmit, close }) {
             }}
           >
             <Field name="name">
-              {({ field }) => <TextField {...field} label="Enter valid name" />}
+              {({ field }) => (
+                <TextField
+                  {...field}
+                  label="Enter valid name"
+                />
+              )}
             </Field>
             <ErrorMessage name="name" component="span" className={css.error} />
           </Box>
@@ -95,12 +98,15 @@ export default function EditForm({ contact, onSubmit, close }) {
             />
           </Box>
 
-          <Button variant="outlined" type="submit">
+          <Button
+            variant="outlined"
+            type="submit"
+            sx={{ backgroundColor: "#cce6f0" }}
+          >
             Save
           </Button>
         </Form>
       </Formik>
-      <Toaster />
     </Box>
   );
 }

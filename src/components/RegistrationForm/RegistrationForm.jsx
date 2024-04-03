@@ -1,38 +1,59 @@
 import { Formik, Form, Field } from "formik";
 import { useDispatch } from "react-redux";
 import { register } from "../../redux/auth/operations";
-import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import { Button } from "@mui/material";
 import { useId } from "react";
+import * as Yup from "yup";
+import { ErrorMessage } from "formik";
+import css from "./RegistrationForm.module.css";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import toast from "react-hot-toast";
+
+const initialValues = {
+  name: "",
+  email: "",
+  password: "",
+};
+
+const ContactSchema = Yup.object().shape({
+  name: Yup.string()
+    .min(3, "Too short!")
+    .max(50, "Too long!")
+    .required("Required"),
+  email: Yup.string()
+    .email("Please, enter a valid email address")
+    .required("Email is required"),
+  password: Yup.string()
+    .min(3, "Too short!")
+    .max(50, "Too long!")
+    .required("Password is required"),
+});
 
 export default function RegistrationForm() {
   const dispatch = useDispatch();
   const mailId = useId();
   const nameId = useId();
   const passwordId = useId();
+
   const handleSubmit = (values, actions) => {
-    console.log(values);
-    dispatch(register(values));
+    dispatch(register(values))
+      .unwrap()
+      .then(() => {
+        toast.success("Registration was successful!");
+      })
+      .catch(() => {
+        toast.error("Registration was failed!");
+      });
     actions.resetForm();
   };
-  return (
-    <Box
-      sx={{
-        marginTop: "10px",
-        // backgroundColor: "#f2f1f0",
 
-        padding: "20px",
-        borderRadius: "8px",
-      }}
-    >
+  return (
+    <Box>
       <Formik
-        initialValues={{
-          name: "",
-          email: "",
-          password: "",
-        }}
+        initialValues={initialValues}
         onSubmit={handleSubmit}
+        validationSchema={ContactSchema}
       >
         <Form
           style={{
@@ -40,7 +61,7 @@ export default function RegistrationForm() {
             marginRight: "auto",
             display: "flex",
             flexDirection: "column",
-            gap: "20px",
+            gap: "10px",
           }}
           autoComplete="off"
         >
@@ -50,26 +71,20 @@ export default function RegistrationForm() {
               flexDirection: "column",
               gap: "4px",
               width: "100%",
+              color: "#524f4e",
             }}
           >
-            <label
-              htmlFor={nameId}
-            >
-              Username
-            </label>
-            <Field name="name">
+            <label htmlFor={nameId}>Username</label>
+            <Field name="name" type="name">
               {({ field }) => (
-                <TextField
+                <OutlinedInput
                   id={nameId}
-                  sx={{
-                  }}
                   {...field}
-
-                  label="Enter your name"
-                  defaultValue="Default Value"
+                  placeholder="Enter your name"
                 />
               )}
             </Field>
+            <ErrorMessage name="name" component="span" className={css.error} />
           </Box>
           <Box
             sx={{
@@ -77,26 +92,20 @@ export default function RegistrationForm() {
               flexDirection: "column",
               gap: "4px",
               width: "100%",
+              color: "#524f4e",
             }}
           >
-            <label
-              htmlFor={mailId}
-            >
-              Email
-            </label>
+            <label htmlFor={mailId}>Email</label>
             <Field type="email" name="email">
               {({ field }) => (
-                <TextField
+                <OutlinedInput
                   id={mailId}
-                  sx={{
-                  }}
                   {...field}
-
-                  label="Enter your email"
-                  defaultValue="Default Value"
+                  placeholder="Enter your email"
                 />
               )}
             </Field>
+            <ErrorMessage name="email" component="span" className={css.error} />
           </Box>
 
           <Box
@@ -105,25 +114,24 @@ export default function RegistrationForm() {
               flexDirection: "column",
               gap: "4px",
               width: "100%",
+              color: "#524f4e",
             }}
           >
-            <label
-              htmlFor={passwordId}
-            >
-              Password
-            </label>
+            <label htmlFor={passwordId}>Password</label>
             <Field type="password" name="password">
               {({ field }) => (
-                <TextField
+                <OutlinedInput
                   id={passwordId}
-                  sx={{
-                  }}
                   {...field}
-                  label="Enter password"
-                  defaultValue="Default Value"
+                  placeholder="Enter password"
                 />
               )}
             </Field>
+            <ErrorMessage
+              name="password"
+              component="span"
+              className={css.error}
+            />
           </Box>
           <Button
             variant="outlined"

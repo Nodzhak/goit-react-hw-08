@@ -22,8 +22,9 @@ export default function AuthNav() {
             fontSize: 18,
             color: "#737270",
             fontWeight: "600",
+            transitionDuration: "600ms",
             "&:hover": {
-              color: "#55a8d9",
+              color: "primary.main",
             },
           }}
         >
@@ -49,8 +50,9 @@ export default function AuthNav() {
             fontSize: 18,
             color: "#737270",
             fontWeight: "600",
+            transitionDuration: "600ms",
             "&:hover": {
-              color: "#55a8d9",
+              color: "primary.main",
             },
           }}
         >

@@ -10,7 +10,6 @@ import Error from "../../components/Error/Error";
 import { selectError } from "../../redux/contacts/selectors";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import ContactsIcon from "@mui/icons-material/Contacts";
 
 export default function Contacts() {
   const dispatch = useDispatch();
@@ -22,19 +21,11 @@ export default function Contacts() {
   }, [dispatch]);
 
   return (
-    <Box
-      sx={{
-        marginTop: "10px",
-        backgroundColor: "#f2f1f0",
-        padding: "10px",
-        borderRadius: "8px",
-      }}
-    >
+    <Box>
       <Typography
         sx={{
           color: "#524f4e",
           fontSize: "22px",
-          marginY: "8px",
           textAlign: "center",
           display: "flex",
           alignItems: "center",
@@ -43,7 +34,7 @@ export default function Contacts() {
           textTransform: "uppercase",
         }}
       >
-        <ContactsIcon /> Phonebook
+        Phonebook
       </Typography>
       {loading && <Loader />}
       <ContactForm />

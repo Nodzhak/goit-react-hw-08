@@ -1,12 +1,11 @@
 import { useId } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { changeFilteredContacts } from "../../redux/contacts/filtersSlice";
-import { selectNameFilter } from "../../redux/contacts/selectors";
+import { changeFilteredContacts } from "../../redux/filters/slice";
+import { selectNameFilter } from "../../redux/filters/selectors";
 import InputAdornment from "@mui/material/InputAdornment";
 import Input from "@mui/material/Input";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import PersonSearchOutlinedIcon from "@mui/icons-material/PersonSearchOutlined";
 
 export default function SearchContact() {
   const searchBoxId = useId();
@@ -20,15 +19,17 @@ export default function SearchContact() {
   return (
     <Box
       sx={{
+        width: "290px",
+        margin: "auto",
         marginTop: "10px",
-        backgroundColor: "#f2f1f0",
-        padding: "10px",
+        padding: "15px",
+        border: "1.5px solid #a2a3a3",
         borderRadius: "8px",
         display: "flex",
         justifyContent: "center",
         alignItems: "flex-end",
         gap: "20px",
-        marginBottom: "20px",
+        marginBottom: "6px",
       }}
     >
       <label htmlFor={searchBoxId}>
@@ -36,11 +37,11 @@ export default function SearchContact() {
           variant="h6"
           sx={{
             color: "#524f4e",
-            fontSize: "16px",
+            fontSize: "12px",
             textAlign: "center",
           }}
         >
-          Find contacts by name:
+          Contact name/number:
         </Typography>
       </label>
       <Input
@@ -51,7 +52,6 @@ export default function SearchContact() {
         onChange={valueChange}
         startAdornment={
           <InputAdornment position="start">
-            <PersonSearchOutlinedIcon />
           </InputAdornment>
         }
       />

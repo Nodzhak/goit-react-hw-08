@@ -1,20 +1,15 @@
 import RegistrationForm from "../../components/RegistrationForm/RegistrationForm";
-import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import { useSelector } from "react-redux";
+import { selectIsLoading } from "../../redux/auth/selectors";
+import Loader from "../../components/Loader/Loader";
 
 export default function Register() {
+  const loading = useSelector(selectIsLoading);
+
   return (
     <Box>
-      <Typography
-        variant="h6"
-        sx={{
-          color: "#524f4e",
-          fontSize: "20px",
-          marginBottom: "10px",
-        }}
-      >
-        Register your account
-      </Typography>
+      {loading && <Loader />}
       <RegistrationForm />
     </Box>
   );
