@@ -2,7 +2,6 @@ import { useDispatch } from "react-redux";
 import { logout } from "../../redux/auth/operations";
 import Box from "@mui/material/Box";
 import { Button, Typography } from "@mui/material";
-import ErrorIcon from "@mui/icons-material/Error";
 
 export default function ModalLogOut({ user, close }) {
   const dispatch = useDispatch();

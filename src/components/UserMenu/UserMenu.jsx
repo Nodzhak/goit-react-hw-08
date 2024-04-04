@@ -1,10 +1,11 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Button } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Modal from "react-modal";
 import { useState } from "react";
 import ModalLogOut from "../Modal/ModalLogOut";
+import { logout } from "../../redux/auth/operations";
 
 const customStyles = {
   content: {
@@ -14,7 +15,6 @@ const customStyles = {
     bottom: "auto",
     transform: "translate(-50%, -50%)",
     width: "400px",
-    heigth: "400px",
     borderRadius: "15px",
   },
   overlay: {
@@ -30,6 +30,8 @@ Modal.setAppElement("#root");
 
 export default function UserMenu() {
   const userName = useSelector((state) => state.auth.user.name);
+  const dispatch = useDispatch(); 
+
   const [modalLogoutIsOpen, setModalLogoutIsOpen] = useState(false);
 
   const openModalLogout = () => {
@@ -42,6 +44,11 @@ export default function UserMenu() {
 
   const handleLogout = () => {
     openModalLogout();
+  };
+
+  const confirmLogout = () => {
+    dispatch(logout()); 
+    closeModalLogout();
   };
 
   return (
@@ -84,7 +91,7 @@ export default function UserMenu() {
         style={customStyles}
         contentLabel="Example Modal"
       >
-        {<ModalLogOut user={userName} close={closeModalLogout} />}
+        <ModalLogOut user={userName} close={closeModalLogout} confirmLogout={confirmLogout} /> {/* Додано передачу confirmLogout */}
       </Modal>
     </Box>
   );

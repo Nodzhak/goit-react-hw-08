@@ -1,11 +1,11 @@
-import LoginForm from "../../components/LoginForm/LoginForm";
+import LoginForm from "../components/LoginForm/LoginForm";
 import { Link } from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import ArrowCircleRightSharpIcon from "@mui/icons-material/ArrowCircleRightSharp";
 import { useSelector } from "react-redux";
-import { selectIsLoading } from "../../redux/auth/selectors";
-import Loader from "../../components/Loader/Loader";
+import { selectIsLoading } from "../redux/auth/selectors";
+import Loader from "../components/Loader/Loader";
 
 export default function Login() {
   const loading = useSelector(selectIsLoading);

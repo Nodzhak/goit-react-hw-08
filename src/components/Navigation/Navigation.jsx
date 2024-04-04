@@ -17,7 +17,7 @@ export default function Navigation() {
         <Typography
           sx={{
             fontSize: 20,
-            // flexGrow: 2,
+
             fontWeight: "600",
             textTransform: "uppercase",
             transitionDuration: "600ms",
